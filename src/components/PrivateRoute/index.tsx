@@ -7,9 +7,9 @@ const PrivateRoute = ({ children, allowedRoles=[] } : PropsWithChildren<{allowed
   if (user) {
     try {
       const { token } = user;
-      if (!token) {
+      /*if (!token) {
         return <Navigate to="/login" replace />
-      }
+      }*/
      // const matchedRoles = user.roles.filter((role:string) => allowedRoles.includes(role));
      // if(matchedRoles.length == 0) {
      //   return <Navigate to="/noauthorized" replace />;

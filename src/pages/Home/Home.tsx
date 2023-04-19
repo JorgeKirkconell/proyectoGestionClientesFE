@@ -25,7 +25,10 @@ export const Home: FC = () => {
   }, [refresh]);
   return (
     <Page>
-      <h1>Home Page</h1>
+      <h1>GESTOR DE CLIENTES</h1>
+      <div>
+        <img src="src\assets\img\clientes.png" alt="" />
+      </div>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       <a
@@ -33,13 +36,9 @@ export const Home: FC = () => {
           setRefresh(!refresh);
         }}
       >
-        Refresh
+        
       </a>
-      {data && !isLoading && !error && (
-        <Card>
-          <h2>{data}</h2>
-        </Card>
-      )}
+      
       { JSON.stringify(empresas) }
     </Page>
   );

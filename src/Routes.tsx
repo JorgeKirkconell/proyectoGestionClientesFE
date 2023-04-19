@@ -9,6 +9,12 @@ import { Home } from './pages/Home/Home';
 import { Version } from './pages/Version';
 import { Empresas, EmpresaForm , EmpresaView} from './pages/Empresas';
 import  PrivateRoute from './components/PrivateRoute';
+import  ClientesView from './pages/clientes/viewClientes';
+import  App from './pages/clientes/deleteClientes';
+import  MyComponent from './pages/clientes/byIdentityView';
+
+
+
 
 import Login from  './pages/Login';
 const Routes = ()=>{
@@ -21,6 +27,12 @@ const Routes = ()=>{
         <Route path="/empresas" element={<PrivateRoute><Empresas/></PrivateRoute>} />
         <Route path="/empresas/new" element={<PrivateRoute><EmpresaForm/></PrivateRoute>} />
         <Route path="/empresas/:id" element={<PrivateRoute><EmpresaView/></PrivateRoute>} />
+        <Route path="/clientes" element= {<PrivateRoute><ClientesView  /></PrivateRoute>} />
+        <Route path="/clientes/delete" element= {<PrivateRoute><App  /></PrivateRoute>} />
+        <Route path="/clientes/byId" element= {<PrivateRoute><MyComponent  /></PrivateRoute>} />
+
+        
+
         <Route path="*" element={<Navigate to="/" />} />
       </Switch>
     </Router>
