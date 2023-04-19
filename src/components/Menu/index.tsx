@@ -3,8 +3,8 @@
 import { useNavigate } from "react-router-dom";
 //import { selectAuth, resetSecData } from "@store/Slices/secSlice";
 
-import {FC} from 'react';
-import {BiLogIn, BiLogOut, BiUserPlus, BiListPlus, BiTrash, BiSearch } from 'react-icons/bi';
+import { FC } from 'react';
+import { BiLogIn, BiLogOut, BiUserPlus, BiListPlus, BiTrash, BiSearch } from 'react-icons/bi';
 import "./Menu.css";
 
 interface MenuProps {
@@ -13,8 +13,8 @@ interface MenuProps {
   showMenu: boolean;
 }
 
-const Menu:FC<MenuProps> = ({setShowMenu, selectShowMenu, showMenu}) => {
-  const user = {token: ''}; //useSelector(selectAuth);
+const Menu: FC<MenuProps> = ({ setShowMenu, selectShowMenu, showMenu }) => {
+  const user = { token: '' }; //useSelector(selectAuth);
   //const showMenu = useSelector(selectShowMenu);
   //const dispatch = useDispatch();
   const classNames = showMenu ? "menu" : "menu hidden";
@@ -24,7 +24,7 @@ const Menu:FC<MenuProps> = ({setShowMenu, selectShowMenu, showMenu}) => {
     e.stopPropagation();
     //dispatch(setShowMenu(!showMenu));
     setShowMenu(!showMenu);
-    navigate((e.target as HTMLAnchorElement).getAttribute("href")||'');
+    navigate((e.target as HTMLAnchorElement).getAttribute("href") || '');
   };
   const onLogoutHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -34,18 +34,19 @@ const Menu:FC<MenuProps> = ({setShowMenu, selectShowMenu, showMenu}) => {
     setShowMenu(!showMenu);
     //navigate("/login");
   };
- /* if (!user?.token) {
+  if (user?.token) {
     return (
       <nav className={classNames}>
         <ul>
           <li>
-            <a href="/login" onClick={(e)=>{}}>
+            <a href="/login" onClick={(e) => { }}>
               <BiLogIn />&nbsp;Iniciar Sesión
             </a>
           </li>
+
           <li>
             <a href="/signup" onClick={onClickHandler}>
-              <BiUserPlus/>&nbsp;Crear Cuenta
+              <BiUserPlus />&nbsp;Crear Cuenta
             </a>
           </li>
           <li>
@@ -61,26 +62,35 @@ const Menu:FC<MenuProps> = ({setShowMenu, selectShowMenu, showMenu}) => {
       <nav className={classNames}>
         <ul>
           <li>
-            <a href="/home" onClick={onLogoutHandler}>
-              <BiLogOut/>&nbsp;Home
+            <a href="/clientes" onClick={onClickHandler}>
+              <BiListPlus />&nbsp;Clientes
             </a>
           </li>
-           <li>
-            <a href="/version" onClick={onClickHandler}>
-              <BiLogOut/>&nbsp;Version
+          <li>
+            <a href="/clientes/new" onClick={onClickHandler}>
+              <BiListPlus />&nbsp;Añadir Cliente
             </a>
           </li>
-           <li>
-            <a href="/another" onClick={onClickHandler}>
-              <BiLogOut/>&nbsp;Not Page Yet
+          <li>
+            <a href="/clientes/delete" onClick={onClickHandler}>
+              <BiTrash />&nbsp;Eliminar Clientes
+            </a>
+          </li>
+          <li>
+            <a href="/clientes/byId" onClick={onClickHandler}>
+              <BiSearch />&nbsp;Buscar por Identidad
+            </a>
+          </li>
+          <li>
+            <a href="/" onClick={onLogoutHandler}>
+              <BiLogOut />&nbsp;Home
             </a>
           </li>
         </ul>
       </nav>
     );
   }
-};
-*/
+
 
   return (
     <nav className={classNames}>
@@ -131,6 +141,7 @@ const Menu:FC<MenuProps> = ({setShowMenu, selectShowMenu, showMenu}) => {
       </ul>
     </nav>
   );
-}
+};
+
 
 export default Menu;

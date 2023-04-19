@@ -2,7 +2,11 @@ import Page from "@/components/Page";
 import { EmpresasUX } from "./EmpresasUX";
 import { EmpresaFormUX } from "./EmpresaFormUX";
 import { FC, useState } from "react";
-import { useGetAllQuery, useAddNewMutation, useGetByIdQuery } from "@/store/services/empServices";
+import {
+  useGetAllQuery,
+  useAddNewMutation,
+  useGetByIdQuery,
+} from "@/store/services/empServices";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const Empresas: FC = () => {
@@ -48,7 +52,7 @@ export const EmpresaForm: FC = () => {
     }
   };
   const onSelectChangeHandler = (
-    event: React.SelectChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>
   ): void => {
     const { name, value } = event.target;
     switch (name) {
@@ -59,29 +63,31 @@ export const EmpresaForm: FC = () => {
         break;
     }
   };
-  const onClickHandler = async ()=>{
-    const result = await newEmpresa({codigo, nombre, status}).unwrap();
+  const onClickHandler = async () => {
+    const result = await newEmpresa({ codigo, nombre, status }).unwrap();
     console.log(result);
     navigate("/empresas");
-  }
-  return <EmpresaFormUX
-    codigo={codigo}
-    nombre={nombre}
-    status={status}
-    onChangeHandler={onChangeHandler}
-    onSelectChangeHandler={onSelectChangeHandler}
-    onClickHandler={onClickHandler}
-  />;
+  };
+  return (
+    <EmpresaFormUX
+      codigo={codigo}
+      nombre={nombre}
+      status={status}
+      onChangeHandler={onChangeHandler}
+      onSelectChangeHandler={onSelectChangeHandler}
+      onClickHandler={onClickHandler}
+    />
+  );
 };
 
 export const EmpresaView: FC = () => {
-  const { id = '' } = useParams();
-  const {data: empresa, isLoading, error} = useGetByIdQuery(id);
+  const { id = "" } = useParams();
+  const { data: empresa, isLoading, error } = useGetByIdQuery(id);
   return (
     <>
-    {isLoading && <div>Loading...</div>}
-    {error && <div>{error?.toString() || ''}</div>}
-    {empresa && <div>{JSON.stringify(empresa)}</div>}
+      {isLoading && <div>Loading...</div>}
+      {error && <div>{error?.toString() || ""}</div>}
+      {empresa && <div>{JSON.stringify(empresa)}</div>}
     </>
   );
 };

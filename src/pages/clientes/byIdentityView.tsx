@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+const { VITE_APP_API_BASE_URL, VITE_APP_API_KEY } = import.meta.env;
 
 interface Props {
   client: {
     _id: string;
     identidad: string;
-  nombre: string;
-  apellido: string;
-  email: string;
-  genero?: string;
-  fechaNac?: string;
-  notas?: string;
+    nombre: string;
+    apellido: string;
+    email: string;
+    genero?: string;
+    fechaNac?: string;
+    notas?: string;
   } | null;
   error: string | null;
 }
@@ -30,10 +31,22 @@ interface Client {
 const useClientByIdentity = (identity: string) => {
   const [client, setClient] = useState<Client | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const infoStr = localStorage.getItem("reduxState");
+  const apikey = VITE_APP_API_KEY;
+  let token = "";
+  if (infoStr) {
+    const infoObj = JSON.parse(infoStr);
+    token = infoObj.sec.token;
+  };
+  const config = {
+    headers: {
+      'apikey': apikey,
+      'Authorization': `Bearer ${token}`
+    }
+  };
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/clientes/byid/${identity}`);
+      const response = await axios.get(`http://localhost:3001/clientes/byid/${identity}`, config);
       const data = response.data;
       setClient(data);
       setError(null);
@@ -74,7 +87,6 @@ const MyComponent = () => {
         <h3>Identidad  - Nombre Apellido -  Email  - Genero - Fecha nacimiento - Notas</h3>
         <hr></hr>
         <p>{client.identidad}  - {client.nombre} {client.apellido} -  {client.email}  - {client.genero} - {client.fechaNac} - {client.notas}</p>
-        
       </div>
     );
   };
